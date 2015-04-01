@@ -1,11 +1,6 @@
+var on = false
 var currentTime = new Date()
 var previousTime = null;
-
-var updateTime = function() {
-  checkStatus();
-  previousTime = currentTime
-  currentTime = new Date()
-}
 
 var checkStatus = function() {
   var online = navigator.onLine;
@@ -15,4 +10,23 @@ var checkStatus = function() {
   else {
     return false
   }
+}
+
+var updateTime = function() {
+  if (checkStatus() == true {
+    previousTime = currentTime
+    currentTime = new Date()
+  }
+}
+
+var checkForInactivity = function() {
+  if(currentTime - previousTime > 3000){
+    createLog()
+  }
+}
+
+var monitorInternet = function() {
+  while (on == true)
+    updateTime()
+    checkStatus
 }
