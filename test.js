@@ -1,6 +1,7 @@
-var on = false
-var currentTime = new Date()
-var previousTime = null;
+var currentTime = new Date();
+var previousTime = new Date();
+
+
 
 var checkStatus = function() {
   var online = navigator.onLine;
@@ -13,20 +14,26 @@ var checkStatus = function() {
 }
 
 var updateTime = function() {
-  if (checkStatus() == true {
+  if (checkStatus() == true) {
     previousTime = currentTime
     currentTime = new Date()
+    console.log(currentTime - previousTime)
   }
 }
 
 var checkForInactivity = function() {
-  if(currentTime - previousTime > 3000){
-    createLog()
+  if(currentTime - previousTime > 5500){
+    console.log('oh no, the website was down from')
+    console.log(previousTime)
+    console.log('to')
+    console.log(currentTime)
+    return false
   }
 }
 
 var monitorInternet = function() {
-  while (on == true)
-    updateTime()
-    checkStatus
+  checkStatus()
+  checkForInactivity()
+  updateTime()
 }
+
