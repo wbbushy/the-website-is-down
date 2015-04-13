@@ -1,9 +1,30 @@
-var currentTime = new Date();
-var previousTime = new Date();
+$(document).ready(bindEvents)
+
+var currentTime = 0;
+var previousTime = 0;
+var stop = null;
 
 
+function bindEvents() {
+    startMonitorInternet()
+    stopMonitorInternet()
+}
 
-var checkStatus = function() {
+function startMonitorInternet() {
+  $('#monitor').click(runIt)
+}
+
+function runIt() {
+  previousTime = new Date()
+  currentTime = new Date()
+  stop = setInterval(monitorInternet, 5000)
+}
+
+function stopMonitorInternet() {
+  $('#stop').click(cancelMonitorInternet)
+}
+
+function checkStatus() {
   var online = navigator.onLine;
   if (online == true) {
     return true
@@ -13,7 +34,7 @@ var checkStatus = function() {
   }
 }
 
-var updateTime = function() {
+function updateTime() {
   if (checkStatus() == true) {
     previousTime = currentTime
     currentTime = new Date()
@@ -21,8 +42,9 @@ var updateTime = function() {
   }
 }
 
-var checkForInactivity = function() {
+function checkForInactivity() {
   if(currentTime - previousTime > 5500){
+    makeLog()
     console.log('oh no, the website was down from')
     console.log(previousTime)
     console.log('to')
@@ -31,9 +53,17 @@ var checkForInactivity = function() {
   }
 }
 
-var monitorInternet = function() {
+function monitorInternet() {
   checkStatus()
   checkForInactivity()
   updateTime()
 }
 
+function cancelMonitorInternet() {
+  clearInterval(stop)
+}
+
+
+function makeLog() {
+  $('#logs').append("<li>Oh No! The website was down from" + previousTime + " to " + currentTime + "</li>")
+}

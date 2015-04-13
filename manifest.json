@@ -2,17 +2,17 @@
   "manifest_version": 2,
   "name": "The Website is Down",
   "version": "1.0",
-  "description": "For Logging Internet Loss",
-  "content_scripts": [ {
-    "js": ["jquery-1.8.2.min.js", "index.js"],
-    "matches": [ "http://*/*", "https://*/*"]
-  }],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["jquery-1.8.2.min.js", "test.js"]
+    }
+  ],
   "browser_action": {
     "default_title": "The Website is Down",
     "default_popup": "index.html"
-  },
-
-  "background": {
-    "scripts": ["background.js"]
   }
 }
